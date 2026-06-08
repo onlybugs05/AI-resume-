@@ -53,9 +53,9 @@ Rules:
 async function generateResume(event) {
   event.preventDefault();
 
-  const apiKey = configuredApiKey || apiKeyInput.value.trim();
+  const apiKey = configuredApiKey;
   if (!apiKey) {
-    setStatus("Please configure your OpenAI API key first.");
+    setStatus("Please click 'Configure Key' before generating.");
     return;
   }
 
