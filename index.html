@@ -21,12 +21,13 @@
             placeholder="sk-..."
             autocomplete="off"
           />
-          <button id="saveKeyBtn" type="button">Save Key</button>
+          <button id="saveKeyBtn" type="button">Configure Key</button>
           <button id="clearKeyBtn" type="button" class="ghost">Clear</button>
         </div>
         <p class="hint">
-          Your key is stored in your browser only (localStorage).
+          Your key is kept only for this page session (not persisted).
         </p>
+        <p id="status" class="status" aria-live="polite"></p>
       </section>
 
       <section class="card">

@@ -1,33 +1,31 @@
-const STORAGE_KEY = "openai_api_key";
-
 const apiKeyInput = document.getElementById("apiKey");
 const saveKeyBtn = document.getElementById("saveKeyBtn");
 const clearKeyBtn = document.getElementById("clearKeyBtn");
 const resumeForm = document.getElementById("resumeForm");
 const output = document.getElementById("output");
 const generateBtn = document.getElementById("generateBtn");
+const statusText = document.getElementById("status");
 
-function loadSavedKey() {
-  const savedKey = localStorage.getItem(STORAGE_KEY);
-  if (savedKey) {
-    apiKeyInput.value = savedKey;
-  }
+let configuredApiKey = "";
+
+function setStatus(message) {
+  statusText.textContent = message;
 }
 
-function saveKey() {
+function configureKey() {
   const key = apiKeyInput.value.trim();
   if (!key) {
-    alert("Please enter an OpenAI API key.");
+    setStatus("Please enter an OpenAI API key.");
     return;
   }
-  localStorage.setItem(STORAGE_KEY, key);
-  alert("OpenAI API key saved.");
+  configuredApiKey = key;
+  setStatus("OpenAI API key configured for this session.");
 }
 
 function clearKey() {
-  localStorage.removeItem(STORAGE_KEY);
+  configuredApiKey = "";
   apiKeyInput.value = "";
-  alert("OpenAI API key cleared.");
+  setStatus("OpenAI API key cleared.");
 }
 
 function buildPrompt(formData) {
@@ -55,9 +53,9 @@ Rules:
 async function generateResume(event) {
   event.preventDefault();
 
-  const apiKey = apiKeyInput.value.trim();
+  const apiKey = configuredApiKey || apiKeyInput.value.trim();
   if (!apiKey) {
-    alert("Please configure your OpenAI API key first.");
+    setStatus("Please configure your OpenAI API key first.");
     return;
   }
 
@@ -69,7 +67,7 @@ async function generateResume(event) {
   output.textContent = "Generating resume...";
 
   try {
-    const response = await fetch("https://api.openai.com/v1/responses", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +75,12 @@ async function generateResume(event) {
       },
       body: JSON.stringify({
         model: "gpt-4.1-mini",
-        input: prompt
+        messages: [
+          {
+            role: "user",
+            content: prompt
+          }
+        ]
       })
     });
 
@@ -89,21 +92,22 @@ async function generateResume(event) {
     }
 
     const data = await response.json();
-    const text = data?.output_text?.trim();
+    const text = data?.choices?.[0]?.message?.content?.trim();
     if (!text) {
       throw new Error("OpenAI did not return generated content.");
     }
 
     output.textContent = text;
+    setStatus("Resume generated successfully.");
   } catch (error) {
     output.textContent = `Error: ${error.message}`;
+    setStatus("Failed to generate resume.");
   } finally {
     generateBtn.disabled = false;
     generateBtn.textContent = "Generate Resume";
   }
 }
 
-saveKeyBtn.addEventListener("click", saveKey);
+saveKeyBtn.addEventListener("click", configureKey);
 clearKeyBtn.addEventListener("click", clearKey);
 resumeForm.addEventListener("submit", generateResume);
-loadSavedKey();

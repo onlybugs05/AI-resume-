@@ -81,6 +81,12 @@ button.ghost {
   font-size: 12px;
 }
 
+.status {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #1d4ed8;
+}
+
 #output {
   white-space: pre-wrap;
   background: #0f172a;

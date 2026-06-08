@@ -23,5 +23,5 @@ Then open:
 `http://localhost:8000/index.html`
 
 ## Notes
-- The OpenAI API key is stored in `localStorage` on your machine.
+- The OpenAI API key is kept only in memory for the current page session.
 - Do not share your API key publicly.
