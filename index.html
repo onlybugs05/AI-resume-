@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resume Builder</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>AI Resume Builder</h1>
+      <p class="subtitle">Generate a resume draft with OpenAI.</p>
+
+      <section class="card">
+        <h2>OpenAI Configuration</h2>
+        <label for="apiKey">OpenAI API Key</label>
+        <div class="row">
+          <input
+            id="apiKey"
+            type="password"
+            placeholder="sk-..."
+            autocomplete="off"
+          />
+          <button id="saveKeyBtn" type="button">Save Key</button>
+          <button id="clearKeyBtn" type="button" class="ghost">Clear</button>
+        </div>
+        <p class="hint">
+          Your key is stored in your browser only (localStorage).
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Resume Details</h2>
+        <form id="resumeForm">
+          <div class="grid">
+            <label>
+              Full Name
+              <input name="fullName" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" required />
+            </label>
+            <label>
+              Phone
+              <input name="phone" required />
+            </label>
+            <label>
+              Target Role
+              <input name="targetRole" required />
+            </label>
+          </div>
+
+          <label>
+            Professional Summary
+            <textarea name="summary" rows="4" required></textarea>
+          </label>
+          <label>
+            Skills (comma separated)
+            <textarea name="skills" rows="3" required></textarea>
+          </label>
+          <label>
+            Work Experience
+            <textarea name="experience" rows="5" required></textarea>
+          </label>
+          <label>
+            Education
+            <textarea name="education" rows="4" required></textarea>
+          </label>
+
+          <button id="generateBtn" type="submit">Generate Resume</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Generated Resume</h2>
+        <pre id="output" aria-live="polite">Your generated resume will appear here.</pre>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
