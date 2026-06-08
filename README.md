@@ -5,7 +5,7 @@ A simple web app that creates a resume draft using OpenAI.
 ## Features
 - Enter resume details (summary, skills, experience, education, etc.)
 - Configure your OpenAI API key in the UI
-- Save/clear API key locally in your browser
+- Configure/clear API key for the current page session
 - Generate a structured resume draft with one click
 
 ## Run
