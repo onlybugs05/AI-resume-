@@ -14,7 +14,7 @@ Because this is a static app, you can run it with any local static server.
 Example with Python:
 
 ```bash
-cd path/to/AI-resume-
+cd AI-resume-
 python3 -m http.server 8000
 ```
 
