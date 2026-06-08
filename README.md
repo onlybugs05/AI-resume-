@@ -9,12 +9,11 @@ A simple web app that creates a resume draft using OpenAI.
 - Generate a structured resume draft with one click
 
 ## Run
-Because this is a static app, you can run it with any local static server.
+Because this is a static app, you can run it with any local static server from the project root directory.
 
 Example with Python:
 
 ```bash
-cd AI-resume-
 python3 -m http.server 8000
 ```
 
